@@ -144,16 +144,36 @@ document.addEventListener('DOMContentLoaded', () => {
         // Переключение способов доставки
         const deliveryOptions = document.querySelectorAll('.delivery-option');
         const deliveryForms = document.querySelectorAll('.delivery-form');
+        const pickupContainer = document.querySelector('.delivery-form[data-delivery-form="pickup"]');
 
         deliveryOptions.forEach(option => {
-            option.addEventListener('click', () => {
+            option.addEventListener('click', async () => { // делаем обработчик асинхронным
                 deliveryOptions.forEach(o => o.classList.remove('active'));
                 deliveryForms.forEach(f => f.style.display = 'none');
 
                 option.classList.add('active');
-                const activeForm = document.querySelector(`.delivery-form[data-delivery-form="${option.dataset.delivery}"]`);
-                if (activeForm) {
-                    activeForm.style.display = 'block';
+                const deliveryType = option.dataset.delivery;
+
+                if (deliveryType === 'pickup') {
+                    // Загружаем и показываем frame4.html для самовывоза
+                    if (pickupContainer.innerHTML === '') { // Загружаем только если он пуст
+                        try {
+                            const response = await fetch('my_good_front/frame4.html');
+                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                            const content = await response.text();
+                            pickupContainer.innerHTML = content;
+                        } catch (error) {
+                            console.error("Failed to fetch frame4.html:", error);
+                            pickupContainer.innerHTML = '<p>Не удалось загрузить пункты самовывоза. Попробуйте позже.</p>';
+                        }
+                    }
+                    pickupContainer.style.display = 'block';
+                } else {
+                    // Показываем другие формы
+                    const activeForm = document.querySelector(`.delivery-form[data-delivery-form="${deliveryType}"]`);
+                    if (activeForm) {
+                        activeForm.style.display = 'block';
+                    }
                 }
             });
         });
