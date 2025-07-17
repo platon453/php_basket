@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина - С товарами</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <img src="img/Лого сайта.png" alt="Логотип">
+            </div>
+            <button class="ratings-btn">
+                <img src="img/Рейтинги.png" alt="Рейтинги">
+                Рейтинги
+            </button>
+            <div class="search-container">
+                <input type="text" placeholder="Что будем искать?" class="search-input">
+                <button class="search-btn">
+                    <img src="img/Искать.png" alt="Поиск">
+                </button>
+            </div>
+            <div class="user-actions">
+                <a href="#" class="user-item">
+                    <img src="img/Вход.png" alt="Вход">
+                    <span>Вход</span>
+                </a>
+                <a href="#" class="user-item">
+                    <img src="img/Начатые.png" alt="Начатые">
+                    <span>Начатые</span>
+                </a>
+                <a href="#" class="user-item">
+                    <img src="img/Избранное.png" alt="Избранные">
+                    <span>Избранные</span>
+                </a>
+                <a href="#" class="user-item active">
+                    <img src="img/Корзина.png" alt="Корзина">
+                    <span>Корзина</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="nav-container">
+            <nav class="nav">
+                <a href="#" class="nav-item">
+                    <img src="img/Читать онлайн.png" alt="">
+                    Читать онлайн
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="img/Новые главы.png" alt="">
+                    Новые главы
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="img/Новые отзывы.png" alt="">
+                    Новые отзывы
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="img/Книги в FB2.png" alt="">
+                    Книги в FB2
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="img/Бесплатные книги.png" alt="">
+                    Бесплатные книги
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="img/Рецензии на книги.png" alt="">
+                    Рецензии на книги
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="cart-header">
+                <div style="flex: 1;">
+                    <h1 class="page-title">КОРЗИНА <span class="item-count">2 товара</span></h1>
+                </div>
+                <button class="clear-cart" style="flex-shrink: 0; margin-left: 20px;">
+                    <img src="img/ Удалить.png" alt="Удалить">
+                    Очистить корзину
+                </button>
+            </div>
+
+            <div class="cart-content">
+                <div class="cart-items">
+                    <h3>Товары в наличии</h3>
+                    
+                    <div class="cart-item">
+                        <img src="img/image32.png" alt="Дом,милый дом" class="book-cover">
+                        <div class="item-details">
+                            <h4>Дом,милый дом</h4>
+                            <p class="author">Begemot</p>
+                            <p class="weight">0.37 кг</p>
+                            <p class="availability">В наличии 4 шт.</p>
+                        </div>
+                        <div class="item-controls">
+                            <div class="quantity-controls">
+                                <button class="qty-btn">−</button>
+                                <span class="quantity">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <div class="price-info">
+                                <span class="old-price">435 ₽</span>
+                                <span class="current-price">347 ₽</span>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="action-btn">📋</button>
+                            <button class="action-btn">🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="cart-item">
+                        <img src="img/image34.png" alt="Шёпот шахт" class="book-cover">
+                        <div class="item-details">
+                            <h4>Шёпот шахт</h4>
+                            <p class="author">Андрей винтер</p>
+                            <p class="weight">0.17 кг</p>
+                            <p class="availability">В наличии 4 шт.</p>
+                        </div>
+                        <div class="item-controls">
+                            <div class="quantity-controls">
+                                <button class="qty-btn">−</button>
+                                <span class="quantity">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="action-btn">📋</button>
+                            <button class="action-btn">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-sidebar">
+                    <div class="promo-section">
+                        <h3>Применить промокод</h3>
+                        <div class="promo-input-group">
+                            <input type="text" placeholder="Введите промокод" class="promo-input">
+                            <button class="apply-btn">ПРИМЕНИТЬ</button>
+                        </div>
+                        <label class="gift-checkbox">
+                            <input type="checkbox">
+                            <span>Оформить в подарок другому человеку</span>
+                        </label>
+                    </div>
+
+                    <div class="order-summary">
+                        <div class="summary-row">
+                            <span>2 товара</span>
+                            <span>794 ₽</span>
+                        </div>
+                        <div class="summary-row discount">
+                            <span>Скидка</span>
+                            <span>-148 ₽</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Итого</span>
+                            <span>646 ₽</span>
+                        </div>
+                        <!--<button class="checkout-btn">ПЕРЕЙТИ К ОФОРМЛЕНИЮ</button>-->
+                        <button class="go-to-checkout-btn">Перейти к оформлению</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="test.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

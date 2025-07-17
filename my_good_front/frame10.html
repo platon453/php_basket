@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить юридическое лицо</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Добавить юридическое лицо</h2>
+                <button class="modal-close">×</button>
+            </div>
+            
+            <div class="modal-content">
+                <form class="legal-form">
+                    <div class="form-group">
+                        <label>Наименование организации</label>
+                        <input type="text" class="form-input full-width">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ИНН</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>КПП</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Юридический адрес</label>
+                        <input type="text" class="form-input full-width">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Фактический адрес</label>
+                        <input type="text" class="form-input full-width">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Код ОКПО</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Код ОКВЭД</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="tel" class="form-input full-width">
+                    </div>
+
+                    <div class="bank-info-section">
+                        <h3>Информация о банке</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>БИК</label>
+                                <input type="text" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Кор. счет</label>
+                                <input type="text" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Расчётный счёт</label>
+                            <input type="text" class="form-input full-width">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">ОПЛАТИТЬ ЗАКАЗ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

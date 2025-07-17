@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление Заказа</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header"> </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="breadcrumb"><a href="cart.html">Корзина</a> > <span>Оформление заказа</span></div>
+            <h1 class="page-title">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+
+            <div class="checkout-content">
+                <form class="checkout-form">
+                    <div class="person-type-tabs">
+                        <button type="button" class="tab active" data-tab="physical">Физическое лицо</button>
+                        <button type="button" class="tab" data-tab="legal">Юридическое лицо</button>
+                    </div>
+
+                    <div class="tab-content active" data-tab="physical">
+                        <div class="step">
+                            <div class="step-content">
+                                <h3>Способ получения</h3>
+                                <div class="delivery-options">
+                                    <button type="button" class="delivery-option active" data-delivery="pickup">Самовывоз</button>
+                                    <button type="button" class="delivery-option" data-delivery="courier">Курьером</button>
+                                    <button type="button" class="delivery-option" data-delivery="postal">Почтой РФ</button>
+                                </div>
+                                <div class="delivery-form" data-delivery-form="courier" style="display: none;"><h4>Адрес для курьера:</h4><input type="text" placeholder="Улица, дом, квартира"></div>
+                                <div class="delivery-form" data-delivery-form="postal" style="display: none;"><h4>Адрес для почты:</h4><input type="text" placeholder="Полный адрес с индексом"></div>
+                            </div>
+                        </div>
+                        </div>
+
+                    <div class="tab-content" data-tab="legal" style="display:none;">
+                         <button type="button" class="add-legal-btn">УКАЗАТЬ ЮРИДИЧЕСКОЕ ЛИЦО</button>
+                    </div>
+                </form>
+
+                <div class="order-summary-sidebar">
+                    <div class="order-summary">
+                        </div>
+                    <button class="pay-btn">ОПЛАТИТЬ ЗАКАЗ</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" style="display: none;">
+        <div class="modal"> <button class="modal-close">×</button></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
