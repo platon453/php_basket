@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Переключение способов доставки
         const deliveryOptions = document.querySelectorAll('.delivery-option');
         const deliveryForms = document.querySelectorAll('.delivery-form');
-        const pickupContainer = document.querySelector('.delivery-form[data-delivery-form="pickup"]');
 
         deliveryOptions.forEach(option => {
             option.addEventListener('click', async () => { // делаем обработчик асинхронным
@@ -153,28 +152,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 option.classList.add('active');
                 const deliveryType = option.dataset.delivery;
+                const container = document.querySelector(`.delivery-form[data-delivery-form="${deliveryType}"]`);
 
-                if (deliveryType === 'pickup') {
-                    // Загружаем и показываем frame4.html для самовывоза
-                    if (pickupContainer.innerHTML === '') { // Загружаем только если он пуст
+                if (!container) return; // Если контейнер не найден, выходим
+
+                // Проверяем, был ли контент уже загружен
+                const isLoaded = container.dataset.loaded === 'true';
+
+                if (!isLoaded) {
+                    let frameUrl = '';
+                    if (deliveryType === 'pickup') {
+                        frameUrl = 'my_good_front/frame4.html';
+                    } else if (deliveryType === 'courier') {
+                        frameUrl = 'my_good_front/frame7.html';
+                    }
+
+                    if (frameUrl) {
                         try {
-                            const response = await fetch('my_good_front/frame4.html');
+                            const response = await fetch(frameUrl);
                             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                            const content = await response.text();
-                            pickupContainer.innerHTML = content;
+                            container.innerHTML = await response.text();
+                            container.dataset.loaded = 'true'; // Помечаем, что контент загружен
                         } catch (error) {
-                            console.error("Failed to fetch frame4.html:", error);
-                            pickupContainer.innerHTML = '<p>Не удалось загрузить пункты самовывоза. Попробуйте позже.</p>';
+                            console.error(`Failed to fetch ${frameUrl}:`, error);
+                            container.innerHTML = '<p>Не удалось загрузить информацию. Попробуйте позже.</p>';
                         }
                     }
-                    pickupContainer.style.display = 'block';
-                } else {
-                    // Показываем другие формы
-                    const activeForm = document.querySelector(`.delivery-form[data-delivery-form="${deliveryType}"]`);
-                    if (activeForm) {
-                        activeForm.style.display = 'block';
-                    }
                 }
+                
+                container.style.display = 'block';
             });
         });
 
