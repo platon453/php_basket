@@ -165,6 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         frameUrl = 'my_good_front/frame4.html';
                     } else if (deliveryType === 'courier') {
                         frameUrl = 'my_good_front/frame7.html';
+                    } else if (deliveryType === 'postal') {
+                        frameUrl = 'my_good_front/frame8.html';
                     }
 
                     if (frameUrl) {
