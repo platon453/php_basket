@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // --- ОБЩАЯ ФУНКЦИЯ ДЛЯ API ---
     async function api(action, data = {}) {
@@ -12,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return await response.json();
         } catch (error) {
             console.error("API Error:", error);
-            // Можно показать пользователю сообщение об ошибке
             return { cart: [] }; // Возвращаем пустую корзину в случае ошибки
         }
     }
@@ -29,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const renderCart = (cart) => {
             if (!cart || cart.length === 0) {
                 fullCartView.style.display = 'none';
-                emptyCartView.style.display = 'flex'; // Используем flex для центрирования
+                emptyCartView.style.display = 'flex';
                 return;
             }
 
@@ -114,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         fullCartView.addEventListener('click', handleCartInteraction);
         
-        // Первоначальная загрузка корзины
         api('get').then(response => renderCart(response.cart));
     }
 
@@ -129,14 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 personTypeTabs.forEach(t => t.classList.remove('active'));
                 personTypeContents.forEach(c => {
                     c.classList.remove('active');
-                    c.style.display = 'none'; // Скрываем контент
+                    c.style.display = 'none';
                 });
 
                 tab.classList.add('active');
                 const activeContent = document.querySelector(`.checkout-form > .tab-content[data-tab="${tab.dataset.tab}"]`);
                 if (activeContent) {
                     activeContent.classList.add('active');
-                    activeContent.style.display = 'block'; // Показываем контент
+                    activeContent.style.display = 'block';
                 }
             });
         });
@@ -146,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const deliveryForms = document.querySelectorAll('.delivery-form');
 
         deliveryOptions.forEach(option => {
-            option.addEventListener('click', async () => { // делаем обработчик асинхронным
+            option.addEventListener('click', async () => {
                 deliveryOptions.forEach(o => o.classList.remove('active'));
                 deliveryForms.forEach(f => f.style.display = 'none');
 
@@ -154,9 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deliveryType = option.dataset.delivery;
                 const container = document.querySelector(`.delivery-form[data-delivery-form="${deliveryType}"]`);
 
-                if (!container) return; // Если контейнер не найден, выходим
+                if (!container) return;
 
-                // Проверяем, был ли контент уже загружен
                 const isLoaded = container.dataset.loaded === 'true';
 
                 if (!isLoaded) {
@@ -174,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const response = await fetch(frameUrl);
                             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                             container.innerHTML = await response.text();
-                            container.dataset.loaded = 'true'; // Помечаем, что контент загружен
+                            container.dataset.loaded = 'true';
                         } catch (error) {
                             console.error(`Failed to fetch ${frameUrl}:`, error);
                             container.innerHTML = '<p>Не удалось загрузить информацию. Попробуйте позже.</p>';
@@ -215,6 +211,38 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 summaryContainer.innerHTML = '<p>Ваша корзина пуста.</p>';
                 document.querySelector('.pay-btn').disabled = true;
+            }
+        });
+
+        // Логика модального окна для юр. лица
+        const addLegalBtn = document.querySelector('.add-legal-btn');
+        const modalOverlay = document.querySelector('.modal-overlay');
+        const modalContainer = modalOverlay.querySelector('.modal');
+
+        const openModal = async () => {
+            if (modalContainer.dataset.loaded !== 'true') {
+                try {
+                    const response = await fetch('my_good_front/frame10.html');
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    modalContainer.innerHTML = await response.text(); 
+                    modalContainer.dataset.loaded = 'true';
+                } catch (error) {
+                    console.error("Failed to fetch frame10.html:", error);
+                    modalContainer.innerHTML = '<p>Не удалось загрузить форму. Попробуйте позже.</p><button class="modal-close">×</button>';
+                }
+            }
+            modalOverlay.style.display = 'flex';
+        };
+
+        const closeModal = () => {
+            modalOverlay.style.display = 'none';
+        };
+
+        addLegalBtn.addEventListener('click', openModal);
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay || e.target.closest('.modal-close')) {
+                closeModal();
             }
         });
     }
