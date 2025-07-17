@@ -772,6 +772,12 @@ body {
 
 .modal-content {
   padding: 20px;
+  display: flex; /* Добавляем flexbox */
+  flex-direction: column; /* Направляем элементы в колонку */
+}
+
+.legal-form {
+    width: 100%; /* Заставляем форму занять всю ширину */
 }
 
 .legal-form .form-row {
