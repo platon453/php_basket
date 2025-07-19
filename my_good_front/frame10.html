@@ -15,45 +15,45 @@
             <div class="modal-content">
                 <form class="legal-form">
                     <div class="form-group">
-                        <label>Наименование организации</label>
-                        <input type="text" class="form-input full-width">
+                        <label for="org-name">Наименование организации</label>
+                        <input type="text" id="org-name" name="orgName" class="form-input full-width">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>ИНН</label>
-                            <input type="text" class="form-input">
+                            <label for="org-inn">ИНН</label>
+                            <input type="text" id="org-inn" name="orgInn" class="form-input">
                         </div>
                         <div class="form-group">
-                            <label>КПП</label>
-                            <input type="text" class="form-input">
+                            <label for="org-kpp">КПП</label>
+                            <input type="text" id="org-kpp" name="orgKpp" class="form-input">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Юридический адрес</label>
-                        <input type="text" class="form-input full-width">
+                        <label for="org-legal-address">Юридический адрес</label>
+                        <input type="text" id="org-legal-address" name="orgLegalAddress" class="form-input full-width">
                     </div>
 
                     <div class="form-group">
-                        <label>Фактический адрес</label>
-                        <input type="text" class="form-input full-width">
+                        <label for="org-actual-address">Фактический адрес</label>
+                        <input type="text" id="org-actual-address" name="orgActualAddress" class="form-input full-width">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Код ОКПО</label>
-                            <input type="text" class="form-input">
+                            <label for="org-okpo">Код ОКПО</label>
+                            <input type="text" id="org-okpo" name="orgOkpo" class="form-input">
                         </div>
                         <div class="form-group">
-                            <label>Код ОКВЭД</label>
-                            <input type="text" class="form-input">
+                            <label for="org-okved">Код ОКВЭД</label>
+                            <input type="text" id="org-okved" name="orgOkved" class="form-input">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Телефон</label>
-                        <input type="tel" class="form-input full-width">
+                        <label for="org-phone">Телефон</label>
+                        <input type="tel" id="org-phone" name="orgPhone" class="form-input full-width">
                     </div>
 
                     <div class="bank-info-section">
@@ -61,22 +61,22 @@
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label>БИК</label>
-                                <input type="text" class="form-input">
+                                <label for="bank-bik">БИК</label>
+                                <input type="text" id="bank-bik" name="bankBik" class="form-input">
                             </div>
                             <div class="form-group">
-                                <label>Кор. счет</label>
-                                <input type="text" class="form-input">
+                                <label for="bank-corr-account">Кор. счет</label>
+                                <input type="text" id="bank-corr-account" name="bankCorrAccount" class="form-input">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Расчётный счёт</label>
-                            <input type="text" class="form-input full-width">
+                            <label for="bank-account">Расчётный счёт</label>
+                            <input type="text" id="bank-account" name="bankAccount" class="form-input full-width">
                         </div>
                     </div>
 
-                    <button type="submit" class="submit-btn">ОПЛАТИТЬ ЗАКАЗ</button>
+                    <button type="button" id="save-legal-data-btn" class="submit-btn">СОХРАНИТЬ ДАННЫЕ</button>
                 </form>
             </div>
 </body>

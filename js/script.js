@@ -217,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- ОБЩАЯ ЛОГИКА МОДАЛЬНЫХ ОКОН ---
         const mainModalOverlay = document.querySelector('.modal-overlay');
         const mainModalContainer = mainModalOverlay.querySelector('.modal');
+        let legalEntityData = null; // Для хранения данных юр. лица
         let checkoutData = {}; // Для хранения данных формы
 
         const openModal = (content) => {
@@ -229,22 +230,63 @@ document.addEventListener('DOMContentLoaded', () => {
             mainModalContainer.innerHTML = ''; // Очищаем содержимое при закрытии
         };
 
-        mainModalOverlay.addEventListener('click', (e) => {
-            if (e.target === mainModalOverlay || e.target.closest('.modal-close')) {
-                closeModal();
-            }
-        });
+        // --- ЛОГИКА ДЛЯ ЮРИДИЧЕСКОГО ЛИЦА ---
+        const legalTabContent = document.querySelector('.tab-content[data-tab="legal"]');
 
-        // --- Модальное окно для ЮР. ЛИЦА ---
-        document.querySelector('.add-legal-btn').addEventListener('click', async () => {
+        const renderLegalEntityInfo = () => {
+            if (legalEntityData && legalEntityData.orgName) {
+                legalTabContent.innerHTML = `
+                    <div class="saved-legal-info" style="padding: 15px; border: 1px solid #eee; border-radius: 4px;">
+                        <h4>${legalEntityData.orgName}</h4>
+                        <p style="color: #666; margin-bottom: 10px;">ИНН: ${legalEntityData.orgInn}</p>
+                        <button type="button" class="edit-legal-btn" style="background: none; border: 1px solid #ccc; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Изменить</button>
+                    </div>
+                `;
+            } else {
+                legalTabContent.innerHTML = '<button type="button" class="add-legal-btn">УКАЗАТЬ ЮРИДИЧЕСКОЕ ЛИЦО</button>';
+            }
+        };
+        
+        const openLegalEntityModal = async () => {
             try {
                 const response = await fetch('my_good_front/frame10.html');
                 if (!response.ok) throw new Error('Failed to load legal entity form');
                 const formHtml = await response.text();
-                openModal(formHtml + '<button class="modal-close">×</button>');
+                openModal(formHtml);
+                
+                if (legalEntityData) {
+                    const form = mainModalContainer.querySelector('.legal-form');
+                    for (const key in legalEntityData) {
+                        if (form.elements[key]) {
+                            form.elements[key].value = legalEntityData[key];
+                        }
+                    }
+                }
             } catch (error) {
                 console.error(error);
                 openModal('<p>Ошибка загрузки формы.</p><button class="modal-close">×</button>');
+            }
+        };
+
+        legalTabContent.addEventListener('click', (e) => {
+            if (e.target.matches('.add-legal-btn') || e.target.matches('.edit-legal-btn')) {
+                openLegalEntityModal();
+            }
+        });
+
+        // --- ОБРАБОТЧИКИ МОДАЛЬНЫХ ОКОН (ЗАКРЫТИЕ И СОХРАНЕНИЕ ЮР. ЛИЦА) ---
+        mainModalOverlay.addEventListener('click', (e) => {
+            if (e.target === mainModalOverlay || e.target.closest('.modal-close')) {
+                closeModal();
+            }
+            if (e.target.id === 'save-legal-data-btn') {
+                const form = mainModalContainer.querySelector('.legal-form');
+                if (form) {
+                    const formData = new FormData(form);
+                    legalEntityData = Object.fromEntries(formData.entries());
+                    renderLegalEntityInfo();
+                    closeModal();
+                }
             }
         });
 
@@ -254,21 +296,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeDeliveryOption = document.querySelector('.delivery-option.active').dataset.delivery;
             const deliveryForm = document.querySelector(`.delivery-form[data-delivery-form="${activeDeliveryOption}"]`);
             const deliveryData = {};
-            deliveryForm.querySelectorAll('input, select, textarea').forEach(input => {
-                deliveryData[input.name || input.placeholder] = input.value;
-            });
-
-            let legalData = {};
-            if (activePersonTab === 'legal') {
-                // Предполагаем, что данные юр. лица где-то сохранены после заполнения модального окна
-                // Пока оставим пустым, реализуем сохранение позже
+            if (deliveryForm) {
+                deliveryForm.querySelectorAll('input, select, textarea').forEach(input => {
+                    const key = input.name || input.placeholder;
+                    if (key) deliveryData[key] = input.value;
+                });
             }
 
             return {
                 personType: activePersonTab,
                 deliveryType: activeDeliveryOption,
                 deliveryDetails: deliveryData,
-                legalDetails: legalData
+                legalDetails: activePersonTab === 'legal' ? legalEntityData : null
             };
         };
 
