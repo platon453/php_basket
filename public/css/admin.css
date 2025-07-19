@@ -72,3 +72,18 @@
     background: #4ecdc4;
     color: #fff;
 }
+
+.danger-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.danger-btn:hover {
+    background-color: #c0392b;
+}

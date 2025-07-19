@@ -16,10 +16,9 @@
 
     <main class="main">
         <div class="container">
-            <h1 class="page-title">Список Заказов</h1>
-            
+
             <div id="login-section">
-                <h3>Вход для администратора</h3>
+                <h1 class="page-title">Вход для администратора</h1>
                 <form id="login-form">
                     <input type="password" id="admin-password" placeholder="Введите пароль" required>
                     <button type="submit">Войти</button>
@@ -27,6 +26,10 @@
             </div>
 
             <div id="orders-section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 class="page-title">Список Заказов</h1>
+                    <button id="clear-db-btn" class="danger-btn">Очистить базу данных</button>
+                </div>
                 <div class="orders-table-container">
                     <table id="orders-table">
                         <thead>

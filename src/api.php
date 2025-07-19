@@ -176,6 +176,25 @@ switch ($action) {
         }
         exit;
 
+    case 'clear_database':
+        $adminPassword = '1234';
+        if (!isset($request['password']) || $request['password'] !== $adminPassword) {
+            http_response_code(403);
+            echo json_encode(['error' => 'Forbidden']);
+            exit;
+        }
+
+        try {
+            $pdo->exec("DELETE FROM order_items");
+            $pdo->exec("DELETE FROM orders");
+            $pdo->exec("DELETE FROM sqlite_sequence WHERE name='orders' OR name='order_items'");
+            echo json_encode(['success' => true, 'message' => 'Database cleared.']);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => 'Failed to clear database: ' . $e->getMessage()]);
+        }
+        exit;
+
     case 'get':
     default:
         break;

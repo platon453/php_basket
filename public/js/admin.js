@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- ЛОГИКА ВХОДА ---
+    const clearDbBtn = document.getElementById('clear-db-btn');
+
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const password = adminPasswordInput.value;
@@ -157,4 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
             ${itemsHtml}
         `;
     };
+
+    // --- ОЧИСТКА БАЗЫ ДАННЫХ ---
+    clearDbBtn.addEventListener('click', async () => {
+        const isConfirmed = confirm('Вы уверены, что хотите удалить ВСЕ заказы? Это действие необратимо.');
+        if (isConfirmed) {
+            const response = await api('clear_database', { password: currentPassword });
+            if (response.success) {
+                alert('База данных заказов успешно очищена.');
+                renderOrders([]); // Очищаем таблицу на стороне клиента
+            } else {
+                alert('Произошла ошибка при очистке базы данных.');
+            }
+        }
+    });
 });
