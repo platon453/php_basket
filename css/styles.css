@@ -747,6 +747,7 @@ body {
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
+  position: relative; /* Добавлено для позиционирования кнопки закрытия */
 }
 
 .modal-header {
@@ -763,11 +764,19 @@ body {
 }
 
 .modal-close {
+  position: absolute; /* Добавлено */
+  top: 10px; /* Добавлено */
+  right: 15px; /* Добавлено */
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 28px; /* Увеличено для лучшей видимости */
   cursor: pointer;
-  color: #666;
+  color: #aaa;
+  line-height: 1;
+}
+
+.modal-close:hover {
+    color: #333;
 }
 
 .modal-content {
@@ -875,7 +884,8 @@ body {
   font-family: monospace;
 }
 
-.pay-button {
+.pay-button,
+.payment-final-button {
   width: 100%;
   background: #4ecdc4;
   color: white;
@@ -886,6 +896,12 @@ body {
   font-size: 16px;
   font-weight: bold;
   margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.pay-button:hover,
+.payment-final-button:hover {
+    background: #45b8af;
 }
 
 /* Footer Styles */

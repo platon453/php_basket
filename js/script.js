@@ -214,35 +214,134 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Логика модального окна для юр. лица
-        const addLegalBtn = document.querySelector('.add-legal-btn');
-        const modalOverlay = document.querySelector('.modal-overlay');
-        const modalContainer = modalOverlay.querySelector('.modal');
+        // --- ОБЩАЯ ЛОГИКА МОДАЛЬНЫХ ОКОН ---
+        const mainModalOverlay = document.querySelector('.modal-overlay');
+        const mainModalContainer = mainModalOverlay.querySelector('.modal');
+        let checkoutData = {}; // Для хранения данных формы
 
-        const openModal = async () => {
-            if (modalContainer.dataset.loaded !== 'true') {
-                try {
-                    const response = await fetch('my_good_front/frame10.html');
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    modalContainer.innerHTML = await response.text(); 
-                    modalContainer.dataset.loaded = 'true';
-                } catch (error) {
-                    console.error("Failed to fetch frame10.html:", error);
-                    modalContainer.innerHTML = '<p>Не удалось загрузить форму. Попробуйте позже.</p><button class="modal-close">×</button>';
-                }
-            }
-            modalOverlay.style.display = 'flex';
+        const openModal = (content) => {
+            mainModalContainer.innerHTML = content;
+            mainModalOverlay.style.display = 'flex';
         };
 
         const closeModal = () => {
-            modalOverlay.style.display = 'none';
+            mainModalOverlay.style.display = 'none';
+            mainModalContainer.innerHTML = ''; // Очищаем содержимое при закрытии
         };
 
-        addLegalBtn.addEventListener('click', openModal);
-
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay || e.target.closest('.modal-close')) {
+        mainModalOverlay.addEventListener('click', (e) => {
+            if (e.target === mainModalOverlay || e.target.closest('.modal-close')) {
                 closeModal();
+            }
+        });
+
+        // --- Модальное окно для ЮР. ЛИЦА ---
+        document.querySelector('.add-legal-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('my_good_front/frame10.html');
+                if (!response.ok) throw new Error('Failed to load legal entity form');
+                const formHtml = await response.text();
+                openModal(formHtml + '<button class="modal-close">×</button>');
+            } catch (error) {
+                console.error(error);
+                openModal('<p>Ошибка загрузки формы.</p><button class="modal-close">×</button>');
+            }
+        });
+
+        // --- СБОР ДАННЫХ И ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ОПЛАТЫ ---
+        const getCheckoutData = () => {
+            const activePersonTab = document.querySelector('.person-type-tabs .tab.active').dataset.tab;
+            const activeDeliveryOption = document.querySelector('.delivery-option.active').dataset.delivery;
+            const deliveryForm = document.querySelector(`.delivery-form[data-delivery-form="${activeDeliveryOption}"]`);
+            const deliveryData = {};
+            deliveryForm.querySelectorAll('input, select, textarea').forEach(input => {
+                deliveryData[input.name || input.placeholder] = input.value;
+            });
+
+            let legalData = {};
+            if (activePersonTab === 'legal') {
+                // Предполагаем, что данные юр. лица где-то сохранены после заполнения модального окна
+                // Пока оставим пустым, реализуем сохранение позже
+            }
+
+            return {
+                personType: activePersonTab,
+                deliveryType: activeDeliveryOption,
+                deliveryDetails: deliveryData,
+                legalDetails: legalData
+            };
+        };
+
+        document.querySelector('.pay-btn').addEventListener('click', async () => {
+            checkoutData = getCheckoutData();
+            
+            try {
+                // Получаем актуальную сумму
+                const { cart } = await api('get');
+                if (!cart || cart.length === 0) {
+                    alert("Ваша корзина пуста!");
+                    return;
+                }
+                const totalPrice = cart.reduce((sum, item) => sum + item.discountPrice * item.quantity, 0);
+
+                // Загружаем и открываем модальное окно оплаты
+                const response = await fetch('payment_modal.html');
+                if (!response.ok) throw new Error('Failed to load payment form');
+                let paymentHtml = await response.text();
+                
+                openModal(paymentHtml + '<button class="modal-close">×</button>');
+
+                // Обновляем сумму в модальном окне
+                document.querySelector('.payment-total-amount').textContent = `Оплатить ${totalPrice} ₽`;
+                document.querySelector('.payment-final-button').textContent = `ОПЛАТИТЬ ${totalPrice} ₽ >`;
+
+                // Навешиваем обработчик на финальную кнопку
+                document.querySelector('.payment-final-button').addEventListener('click', async () => {
+                    // Здесь можно добавить сбор данных карты, если нужно
+                    console.log("Finalizing order with data:", checkoutData);
+                    
+                    const result = await api('place_order', { orderDetails: checkoutData });
+
+                    if (result.success) {
+                        closeModal();
+                        // Показываем красивый экран успеха
+                        try {
+                            const response = await fetch('order_success.html');
+                            if (!response.ok) throw new Error('Failed to load success screen');
+                            const successHtml = await response.text();
+                            
+                            const checkoutContent = document.querySelector('.checkout-content');
+                            checkoutContent.innerHTML = successHtml;
+
+                            // Обновляем номер заказа
+                            const orderIdElement = checkoutContent.querySelector('#order-success-message');
+                            if (orderIdElement) {
+                                orderIdElement.textContent = `Номер вашего заказа: #${result.orderId}`;
+                            }
+                            
+                            // Прячем сайдбар и расширяем основной контент
+                            const sidebar = document.querySelector('.order-summary-sidebar');
+                            if(sidebar) sidebar.style.display = 'none';
+                            checkoutContent.style.gridTemplateColumns = '1fr';
+
+                        } catch (error) {
+                            console.error(error);
+                            // Fallback to simple message
+                            document.querySelector('.checkout-content').innerHTML = `
+                                <div style="text-align: center; padding: 50px;">
+                                    <h2>Заказ №${result.orderId} успешно оформлен!</h2>
+                                    <p>Спасибо за покупку!</p>
+                                    <a href="/" class="button">Вернуться на главную</a>
+                                </div>`;
+                        }
+                    } else {
+                        alert('Произошла ошибка при оформлении заказа. Попробуйте снова.');
+                    }
+                });
+
+            } catch (error) {
+                console.error("Payment modal error:", error);
+                openModal('<p>Ошибка при открытии формы оплаты.</p><button class="modal-close">×</button>');
             }
         });
     }

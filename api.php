@@ -30,6 +30,15 @@ switch ($action) {
     case 'clear':
         $_SESSION['cart'] = [];
         break;
+    case 'place_order':
+        // Здесь должна быть реальная логика обработки заказа: 
+        // сохранение в базу данных, интеграция с платежной системой и т.д.
+        // Сейчас мы просто очищаем корзину и возвращаем успех.
+        $orderDetails = $request['orderDetails']; // Можно использовать для логирования
+        $_SESSION['cart'] = [];
+        echo json_encode(['success' => true, 'orderId' => rand(10000, 99999)]);
+        exit;
+
     case 'get':
     default:
         break;
