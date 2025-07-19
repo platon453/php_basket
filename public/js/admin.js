@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const loginSection = document.getElementById('login-section');
     const ordersSection = document.getElementById('orders-section');
     const loginForm = document.getElementById('login-form');
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ОБЩАЯ ФУНКЦИЯ ДЛЯ API ---
     async function api(action, data = {}) {
         try {
-            const response = await fetch('api.php', {
+            const response = await fetch('/index.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action, ...data })
@@ -46,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await api('get_all_orders', { password });
 
         if (response.success) {
-            currentPassword = password; // Сохраняем пароль для будущих запросов
-            allOrders = response.orders; // Сохраняем все заказы
+            currentPassword = password;
+            allOrders = response.orders;
             loginSection.style.display = 'none';
             ordersSection.style.display = 'block';
             renderOrders(allOrders);
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- ОТРИСОВКА ТАБЛИЦЫ ЗАКАЗОВ ---
     const renderOrders = (orders) => {
-        ordersTableBody.innerHTML = ''; // Очищаем таблицу
+        ordersTableBody.innerHTML = '';
 
         if (!orders || orders.length === 0) {
             ordersTableBody.innerHTML = '<tr><td colspan="6">Заказов пока нет.</td></tr>';
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderModalContent = (order, items) => {
         modalTitle.textContent = `Детали Заказа #${order.id}`;
-        
+
         let itemsHtml = '<p>Нет товаров в заказе.</p>';
         if (items && items.length > 0) {
             itemsHtml = `

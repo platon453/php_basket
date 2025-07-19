@@ -11,7 +11,7 @@ if (!in_array('sqlite', PDO::getAvailableDrivers())) {
 
 // --- DATABASE CONNECTION ---
 try {
-    $pdo = new PDO('sqlite:' . __DIR__ . '/php_basket.sqlite');
+    $pdo = new PDO('sqlite:' . __DIR__ . '/../data/php_basket.sqlite');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     http_response_code(500);
@@ -29,6 +29,19 @@ $request = json_decode(file_get_contents('php://input'), true);
 $action = $request['action'] ?? 'get';
 
 switch ($action) {
+    case 'get_template':
+        header('Content-Type: text/html');
+        $templateName = $request['name'] ?? '';
+        $filePath = __DIR__ . '/../templates/' . basename($templateName);
+
+        if (file_exists($filePath)) {
+            readfile($filePath);
+        } else {
+            http_response_code(404);
+            echo "Template not found.";
+        }
+        exit;
+
     case 'debug_fill_cart': // Новое действие для наполнения корзины
         $_SESSION['cart'] = [
             1 => array_merge($productsDB[1], ['quantity' => 1]),

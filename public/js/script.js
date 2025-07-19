@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ОБЩАЯ ФУНКЦИЯ ДЛЯ API ---
     async function api(action, data = {}) {
         try {
-            const response = await fetch('api.php', {
+            const response = await fetch('/index.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action, ...data })
@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("API Error:", error);
             return { cart: [] }; // Возвращаем пустую корзину в случае ошибки
         }
+    }
+
+    async function fetchTemplate(templateName) {
+        const response = await fetch('/index.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'get_template', name: templateName })
+        });
+        if (!response.ok) throw new Error(`Failed to fetch template ${templateName}`);
+        return await response.text();
     }
 
     // --- ЛОГИКА СТРАНИЦЫ КОРЗИНЫ (cart.html) ---
@@ -156,23 +166,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isLoaded = container.dataset.loaded === 'true';
 
                 if (!isLoaded) {
-                    let frameUrl = '';
+                    let templateName = '';
                     if (deliveryType === 'pickup') {
-                        frameUrl = 'my_good_front/frame4.html';
+                        templateName = 'frame4.html';
                     } else if (deliveryType === 'courier') {
-                        frameUrl = 'my_good_front/frame7.html';
+                        templateName = 'frame7.html';
                     } else if (deliveryType === 'postal') {
-                        frameUrl = 'my_good_front/frame8.html';
+                        templateName = 'frame8.html';
                     }
 
-                    if (frameUrl) {
+                    if (templateName) {
                         try {
-                            const response = await fetch(frameUrl);
-                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                            container.innerHTML = await response.text();
+                            container.innerHTML = await fetchTemplate(templateName);
                             container.dataset.loaded = 'true';
                         } catch (error) {
-                            console.error(`Failed to fetch ${frameUrl}:`, error);
+                            console.error(error);
                             container.innerHTML = '<p>Не удалось загрузить информацию. Попробуйте позже.</p>';
                         }
                     }
@@ -249,9 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const openLegalEntityModal = async () => {
             try {
-                const response = await fetch('my_good_front/frame10.html');
-                if (!response.ok) throw new Error('Failed to load legal entity form');
-                const formHtml = await response.text();
+                const formHtml = await fetchTemplate('frame10.html');
                 openModal(formHtml);
                 
                 if (legalEntityData) {
@@ -324,10 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const totalPrice = cart.reduce((sum, item) => sum + item.discountPrice * item.quantity, 0);
 
                 // Загружаем и открываем модальное окно оплаты
-                const response = await fetch('payment_modal.html');
-                if (!response.ok) throw new Error('Failed to load payment form');
-                let paymentHtml = await response.text();
-                
+                const paymentHtml = await fetchTemplate('payment_modal.html');
                 openModal(paymentHtml + '<button class="modal-close">×</button>');
 
                 // Обновляем сумму в модальном окне
@@ -345,9 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         closeModal();
                         // Показываем красивый экран успеха
                         try {
-                            const response = await fetch('order_success.html');
-                            if (!response.ok) throw new Error('Failed to load success screen');
-                            const successHtml = await response.text();
+                            const successHtml = await fetchTemplate('order_success.html');
                             
                             const checkoutContent = document.querySelector('.checkout-content');
                             checkoutContent.innerHTML = successHtml;
