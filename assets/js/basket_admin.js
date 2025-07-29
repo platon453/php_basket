@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let allOrders = [];
 
     // --- ОБЩАЯ ФУНКЦИЯ ДЛЯ API ---
-    async function api(action, data = {}) {
+    async function api(endpoint, data = {}) {
         try {
-            const response = await fetch('/index.php', {
+            const response = await fetch(`/api/${endpoint}.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action, ...data })
+                body: JSON.stringify(data)
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearDbBtn.addEventListener('click', async () => {
         const isConfirmed = confirm('Вы уверены, что хотите удалить ВСЕ заказы? Это действие необратимо.');
         if (isConfirmed) {
-            const response = await api('clear_database', { password: currentPassword });
+            const response = await api('BasketClearDatabase', { password: currentPassword });
             if (response.success) {
                 alert('База данных заказов успешно очищена.');
                 renderOrders([]); // Очищаем таблицу на стороне клиента

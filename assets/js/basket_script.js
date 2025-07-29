@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- ОБЩАЯ ФУНКЦИЯ ДЛЯ API ---
-    async function api(action, data = {}) {
+    async function api(endpoint, data = {}) {
         try {
-            const response = await fetch('/index.php', {
+            const response = await fetch(`/api/${endpoint}.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action, ...data })
+                body: JSON.stringify(data)
             });
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             return await response.json();
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Здесь можно добавить сбор данных карты, если нужно
                     console.log("Finalizing order with data:", checkoutData);
                     
-                    const result = await api('place_order', { orderDetails: checkoutData });
+                    const result = await api('BasketPlaceOrder', { orderDetails: checkoutData });
 
                     if (result.success) {
                         closeModal();
