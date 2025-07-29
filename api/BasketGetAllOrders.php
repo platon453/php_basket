@@ -17,12 +17,6 @@ if (!in_array($_SERVER['REMOTE_ADDR'], $admin_ips)) {
 
 $result = BasketGetAllOrders($pdo);
 
-// --- ОТЛАДКА ---
-if (isset($result['orders'])) {
-    error_log("ДАННЫЕ ИЗ БД: " . print_r($result['orders'], true));
-}
-// ---------------
-
 if (!$result['success']) {
     http_response_code(500);
 }

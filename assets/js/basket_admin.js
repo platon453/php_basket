@@ -93,14 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     ordersTableBody.addEventListener('click', async (e) => {
-        console.log('Клик по таблице заказов!', e.target);
-
         if (e.target.classList.contains('details-btn')) {
-            console.log('Нажата кнопка "Показать"');
             const row = e.target.closest('tr');
-            console.log('Найденный элемент строки (tr):', row);
-            const orderId = row.getAttribute('data-order-id'); // ИСПОЛЬЗУЕМ БОЛЕЕ НАДЕЖНЫЙ МЕТОД
-            console.log('Получен ID заказа:', orderId);
+            const orderId = row.getAttribute('data-order-id');
 
             if (!orderId) {
                 console.error('Не удалось найти ID заказа!');
@@ -113,12 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            console.log('Вызываю API для получения деталей заказа...');
             const response = await api('BasketGetOrderDetails', { password: currentPassword, orderId });
-            console.log('Получен ответ от API:', response);
 
             if (response.success) {
-                console.log('Ответ успешный, рендерю модальное окно...');
                 renderModalContent(orderData, response.items);
                 openModal();
             } else {
