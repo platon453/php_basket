@@ -10,16 +10,24 @@
 <body>
     <main class="main">
         <div class="container">
+            
+
             <div class="checkout-content">
                 <div class="checkout-form">
+                    
+
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h3>Способ получения</h3>
                             <div class="location-info">📍 Россия, Москва</div>
+                            
+                            
+
                             <div class="delivery-form">
                                 <h4>Куда доставить</h4>
                                 <p class="delivery-note">Улица и номер дома в 📍 Россия, Москва</p>
+                                
                                 <div class="address-inputs">
                                     <div class="input-row">
                                         <input type="text" placeholder="" class="address-input full-width">
@@ -30,6 +38,7 @@
                                         <input type="text" placeholder="Комментарий для курьера" class="address-input">
                                     </div>
                                 </div>
+
                                 <div class="delivery-cost">
                                     <h4>Стоимость доставки</h4>
                                     <p>Рассчитывается индивидуально</p>
@@ -47,6 +56,7 @@
                                 <input type="checkbox" checked>
                                 <span>Использовать подарочный сертификат</span>
                             </label>
+
                             <div class="payment-options">
                                 <div class="payment-option active">
                                     <h4>Через СБП</h4>
@@ -82,6 +92,7 @@
             </div>
         </div>
     </main>
+
     <script src="/assets/js/basket_script.js"></script>
     <script src="/assets/js/basket_script.js"></script>
 </body>
