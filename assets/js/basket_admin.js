@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const response = await api('get_all_orders', { password });
+        const response = await api('BasketGetAllOrders', { password });
 
         if (response.success) {
             currentPassword = password;
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const orderData = allOrders.find(o => o.id == orderId);
             if (!orderData) return;
 
-            const response = await api('get_order_details', { password: currentPassword, orderId });
+            const response = await api('BasketGetOrderDetails', { password: currentPassword, orderId });
 
             if (response.success) {
                 renderModalContent(orderData, response.items);
