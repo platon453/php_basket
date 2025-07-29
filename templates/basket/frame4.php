@@ -49,7 +49,7 @@
                             </label>
 
                             <div class="payment-options">
-                                <div class="payment-option active">
+                                <div class="payment-option">
                                     <h4>При получении</h4>
                                     <p>Оплатите заказ при получении наличными или банковской картой</p>
                                 </div>
@@ -57,7 +57,7 @@
                                     <h4>Через СБП</h4>
                                     <p>Система быстрых платежей банков</p>
                                 </div>
-                                <div class="payment-option">
+                                <div class="payment-option active">
                                     <h4>Картой на сайте</h4>
                                     <p>Оплатите на сайте онлайн</p>
                                 </div>

@@ -59,12 +59,10 @@
 
 7. Временное решение по решению проблемы с пустой корзиной(ВРЕМЕННОЕ)!
 ```js
-fetch('api.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'debug_fill_cart' })
-}).then(res => res.json()).then(data => {
-    console.log('Корзина наполнена, перезагружаем страницу...');
-    window.location.reload();
-});
+fetch('/api/BasketDebugFill.php')
+  .then(res => res.json())
+  .then(data => {
+    console.log('Корзина наполнена!', data);
+    window.location.reload(); // Перезагружаем страницу, чтобы увидеть товары
+  });
 ```

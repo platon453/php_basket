@@ -12,7 +12,7 @@
 
     <main class="main">
         <div class="container">
-            <div class="breadcrumb"><a href="cart.html">Корзина</a> > <span>Оформление заказа</span></div>
+            <div class="breadcrumb"><a href="cart">Корзина</a> > <span>Оформление заказа</span></div>
             <h1 class="page-title">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
 
             <div class="checkout-content">
