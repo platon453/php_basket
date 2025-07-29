@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплатить заказ</title>
+    <link rel="stylesheet" href="/assets/css/basket_styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_admin.css">
+</head>
+<body>
+    <main class="main">
+        <div class="container">
+            <div class="payment-container">
+                <div class="payment-header">
+                    <h1>Оплатить 0 ₽</h1>
+                    <p>Пожалуйста оплатите заказ в течение 30 минут</p>
+                    <p class="order-number">Номер карты</p>
+                </div>
+
+                <form class="payment-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="0000 0000 0000 0000" class="card-input card-number">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="ММ/ГГ" class="card-input expiry">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="CVC/CVV код" class="card-input cvv">
+                        </div>
+                    </div>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox">
+                        <span>Запомнить карту</span>
+                    </label>
+
+                    <button type="submit" class="pay-button">ОПЛАТИТЬ 0 ₽ ></button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="/assets/js/basket_script.js"></script>
+    <script src="/assets/js/basket_script.js"></script>
+    
+</body>
+</html>
