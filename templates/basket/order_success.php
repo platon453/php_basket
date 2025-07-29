@@ -1,6 +1,6 @@
 <div class="empty-cart" style="padding: 60px 20px;">
     <div class="empty-cart-icon">
-        <img src="img/image32.png" alt="Заказ оформлен" style="width: 150px; height: auto; border-radius: 12px;">
+        <img src="assets/img/image32.png" alt="Заказ оформлен" style="width: 150px; height: auto; border-radius: 12px;">
     </div>
     <h2 class="empty-cart-title" style="font-size: 28px; margin-top: 20px;">Заказ успешно оформлен!</h2>
     <p class="empty-cart-text" id="order-success-message" style="font-size: 18px;">Номер вашего заказа: #12345</p>

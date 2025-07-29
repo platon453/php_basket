@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оформление заказа - Доставка</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Оформление заказа - Почта РФ</title>
+    <link rel="stylesheet" href="/assets/css/basket_styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_admin.css">
 </head>
 <body>
     
@@ -23,8 +24,6 @@
                             <h3>Способ получения</h3>
                             <div class="location-info">📍 Россия, Москва</div>
                             
-                            
-
                             <div class="delivery-form">
                                 <h4>Куда доставить</h4>
                                 <p class="delivery-note">Улица и номер дома в 📍 Россия, Москва</p>
@@ -35,8 +34,7 @@
                                         <input type="text" placeholder="Индекс" class="address-input">
                                     </div>
                                     <div class="input-row">
-                                        <input type="text" placeholder="Квартира или офис" class="address-input">
-                                        <input type="text" placeholder="Комментарий для курьера" class="address-input">
+                                        <input type="text" placeholder="Квартира или офис" class="address-input full-width">
                                     </div>
                                 </div>
 
@@ -95,7 +93,8 @@
             </div>
         </div>
     </main>
-
+    <script src="/assets/js/basket_script.js"></script>
+    <script src="/assets/js/basket_script.js"></script>
     
 </body>
 </html>

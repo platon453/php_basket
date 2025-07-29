@@ -1,14 +1,16 @@
 <?php
-// ... (существующие 147 кейсов)
-
-// Basket module actions
-case 148:
-    include_once('function/BasketShowCart.php');
-    break;
-case 149:
-    include_once('function/BasketShowCheckout.php');
-    break;
-case 150:
-    include_once('function/BasketShowAdminPanel.php');
-    break;
+switch ($route_id) {
+    case 148:
+        require_once(__DIR__ . '/../function/BasketShowCart.php');
+        BasketShowCart();
+        break;
+    case 149:
+        require_once(__DIR__ . '/../function/BasketShowCheckout.php');
+        BasketShowCheckout();
+        break;
+    case 150:
+        require_once(__DIR__ . '/../function/BasketShowAdminPanel.php');
+        BasketShowAdminPanel();
+        break;
+}
 ?>

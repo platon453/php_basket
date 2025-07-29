@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оформление заказа</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Оформление заказа - Доставка</title>
+    <link rel="stylesheet" href="/assets/css/basket_styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_admin.css">
 </head>
 <body>
-    
-
     <main class="main">
         <div class="container">
             
@@ -25,18 +24,27 @@
                             
                             
 
-                            <div class="delivery-details">
-                                <div class="delivery-input-group">
-                                    <label>В магазине</label>
-                                    <input type="text" placeholder="В отделе, 17 мин, Бесплатно">
+                            <div class="delivery-form">
+                                <h4>Куда доставить</h4>
+                                <p class="delivery-note">Улица и номер дома в 📍 Россия, Москва</p>
+                                
+                                <div class="address-inputs">
+                                    <div class="input-row">
+                                        <input type="text" placeholder="" class="address-input full-width">
+                                        <input type="text" placeholder="Индекс" class="address-input">
+                                    </div>
+                                    <div class="input-row">
+                                        <input type="text" placeholder="Квартира или офис" class="address-input">
+                                        <input type="text" placeholder="Комментарий для курьера" class="address-input">
+                                    </div>
                                 </div>
-                                <div class="delivery-input-group">
-                                    <label>В пункте выдачи</label>
-                                    <input type="text" placeholder="В отделе, 17 мин, 250 ₽">
+
+                                <div class="delivery-cost">
+                                    <h4>Стоимость доставки</h4>
+                                    <p>Рассчитывается индивидуально</p>
+                                    <p class="delivery-time">Срок доставки в почтовых отправлениях 15 дней</p>
                                 </div>
                             </div>
-
-                            <button class="map-btn">ВЫБРАТЬ МАГАЗИН НА КАРТЕ</button>
                         </div>
                     </div>
 
@@ -51,12 +59,8 @@
 
                             <div class="payment-options">
                                 <div class="payment-option active">
-                                    <h4>При получении</h4>
-                                    <p>Оплатите заказ при получении наличными или банковской картой</p>
-                                </div>
-                                <div class="payment-option">
                                     <h4>Через СБП</h4>
-                                    <p>Система быстрых платежей банков</p>
+                                    <p>Оплатите через систему быстрых платежей банков</p>
                                 </div>
                                 <div class="payment-option">
                                     <h4>Картой на сайте</h4>
@@ -85,13 +89,11 @@
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
     </main>
 
-    
-    
+    <script src="/assets/js/basket_script.js"></script>
+    <script src="/assets/js/basket_script.js"></script>
 </body>
 </html>

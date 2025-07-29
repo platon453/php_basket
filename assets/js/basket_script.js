@@ -15,17 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function fetchTemplate(templateName) {
-        const response = await fetch('/index.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'get_template', name: templateName })
-        });
+        async function fetchTemplate(templateName) {
+        // ЗАПРАШИВАЕМ ШАБЛОН НАПРЯМУЮ ИЗ ЕГО НОВОЙ ПАПКИ
+        const response = await fetch(`/templates/basket/${templateName}`);
         if (!response.ok) throw new Error(`Failed to fetch template ${templateName}`);
         return await response.text();
     }
 
-    // --- ЛОГИКА СТРАНИЦЫ КОРЗИНЫ (cart.html) ---
+    // --- ЛОГИКА СТРАНИЦЫ КОРЗИНЫ (cart.php) ---
     if (document.getElementById('full-cart-view')) {
         const fullCartView = document.getElementById('full-cart-view');
         const emptyCartView = document.getElementById('empty-cart-view');
@@ -116,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (quantity < 0) quantity = 0;
 
-            const { cart } = await api('update_quantity', { itemId, quantity });
+            const { cart } = await api('BasketUpdateQuantity', { itemId, quantity });
             renderCart(cart);
         };
         
@@ -125,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         api('get').then(response => renderCart(response.cart));
     }
 
-    // --- ЛОГИКА СТРАНИЦЫ ОФОРМЛЕНИЯ (checkout.html) ---
+    // --- ЛОГИКА СТРАНИЦЫ ОФОРМЛЕНИЯ (checkout.php) ---
     if (document.querySelector('.checkout-form')) {
         // Переключение между физ. и юр. лицом
         const personTypeTabs = document.querySelectorAll('.person-type-tabs .tab');
@@ -168,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isLoaded) {
                     let templateName = '';
                     if (deliveryType === 'pickup') {
-                        templateName = 'frame4.html';
+                        templateName = 'frame4.php';
                     } else if (deliveryType === 'courier') {
-                        templateName = 'frame7.html';
+                        templateName = 'frame7.php';
                     } else if (deliveryType === 'postal') {
-                        templateName = 'frame8.html';
+                        templateName = 'frame8.php';
                     }
 
                     if (templateName) {
@@ -257,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const openLegalEntityModal = async () => {
             try {
-                const formHtml = await fetchTemplate('frame10.html');
+                const formHtml = await fetchTemplate('frame10.php');
                 openModal(formHtml);
                 
                 if (legalEntityData) {
@@ -330,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const totalPrice = cart.reduce((sum, item) => sum + item.discountPrice * item.quantity, 0);
 
                 // Загружаем и открываем модальное окно оплаты
-                const paymentHtml = await fetchTemplate('payment_modal.html');
+                const paymentHtml = await fetchTemplate('payment_modal.php');
                 openModal(paymentHtml + '<button class="modal-close">×</button>');
 
                 // Обновляем сумму в модальном окне
@@ -348,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         closeModal();
                         // Показываем красивый экран успеха
                         try {
-                            const successHtml = await fetchTemplate('order_success.html');
+                            const successHtml = await fetchTemplate('order_success.php');
                             
                             const checkoutContent = document.querySelector('.checkout-content');
                             checkoutContent.innerHTML = successHtml;

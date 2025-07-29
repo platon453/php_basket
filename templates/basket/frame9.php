@@ -4,39 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оформление заказа - Юридическое лицо</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_admin.css">
 </head>
 <body>
     <header class="header">
     <div class="header-top">
         <div class="logo">
-            <img src="img/Лого сайта.png" alt="Логотип">
+            <img src="assets/img/Лого сайта.png" alt="Логотип">
         </div>
         <button class="ratings-btn">
-            <img src="img/Рейтинги.png" alt="Рейтинги">
+            <img src="assets/img/Рейтинги.png" alt="Рейтинги">
             Рейтинги
         </button>
         <div class="search-container">
             <input type="text" placeholder="Что будем искать?" class="search-input">
             <button class="search-btn">
-                <img src="img/Искать.png" alt="Поиск">
+                <img src="assets/img/Искать.png" alt="Поиск">
             </button>
         </div>
         <div class="user-actions">
             <a href="#" class="user-item">
-                <img src="img/Вход.png" alt="Вход">
+                <img src="assets/img/Вход.png" alt="Вход">
                 <span>Вход</span>
             </a>
             <a href="#" class="user-item">
-                <img src="img/Начатые.png" alt="Начатые">
+                <img src="assets/img/Начатые.png" alt="Начатые">
                 <span>Начатые</span>
             </a>
             <a href="#" class="user-item">
-                <img src="img/Избранное.png" alt="Избранные">
+                <img src="assets/img/Избранное.png" alt="Избранные">
                 <span>Избранные</span>
             </a>
             <a href="#" class="user-item active">
-                <img src="img/Корзина.png" alt="Корзина">
+                <img src="assets/img/Корзина.png" alt="Корзина">
                 <span>Корзина</span>
             </a>
         </div>
@@ -45,27 +46,27 @@
     <div class="nav-container">
         <nav class="nav">
             <a href="#" class="nav-item">
-                <img src="img/Читать онлайн.png" alt="">
+                <img src="assets/img/Читать онлайн.png" alt="">
                 Читать онлайн
             </a>
             <a href="#" class="nav-item">
-                <img src="img/Новые главы.png" alt="">
+                <img src="assets/img/Новые главы.png" alt="">
                 Новые главы
             </a>
             <a href="#" class="nav-item">
-                <img src="img/Новые отзывы.png" alt="">
+                <img src="assets/img/Новые отзывы.png" alt="">
                 Новые отзывы
             </a>
             <a href="#" class="nav-item">
-                <img src="img/Книги в FB2.png" alt="">
+                <img src="assets/img/Книги в FB2.png" alt="">
                 Книги в FB2
             </a>
             <a href="#" class="nav-item">
-                <img src="img/Бесплатные книги.png" alt="">
+                <img src="assets/img/Бесплатные книги.png" alt="">
                 Бесплатные книги
             </a>
             <a href="#" class="nav-item">
-                <img src="img/Рецензии на книги.png" alt="">
+                <img src="assets/img/Рецензии на книги.png" alt="">
                 Рецензии на книги
             </a>
         </nav>
@@ -219,5 +220,7 @@
             </div>
         </div>
     </footer>
+    <script src="/assets/js/basket_script.js"></script>
+    <script src="/assets/js/basket_script.js"></script>
 </body>
 </html>

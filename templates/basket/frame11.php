@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Оплатить заказ</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_styles.css">
+    <link rel="stylesheet" href="/assets/css/basket_admin.css">
 </head>
 <body>
     <main class="main">
@@ -40,5 +41,8 @@
             </div>
         </div>
     </main>
+    <script src="/assets/js/basket_script.js"></script>
+    <script src="/assets/js/basket_script.js"></script>
+    
 </body>
 </html>
