@@ -98,7 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('details-btn')) {
             console.log('Нажата кнопка "Показать"');
             const row = e.target.closest('tr');
-            const orderId = row.dataset.orderId;
+            console.log('Найденный элемент строки (tr):', row);
+            const orderId = row.getAttribute('data-order-id'); // ИСПОЛЬЗУЕМ БОЛЕЕ НАДЕЖНЫЙ МЕТОД
             console.log('Получен ID заказа:', orderId);
 
             if (!orderId) {
