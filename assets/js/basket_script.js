@@ -381,6 +381,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 openModal('<p>Ошибка при открытии формы оплаты.</p><button class="modal-close">×</button>');
             }
         });
+    // --- ЛОГИКА ПЕРЕКЛЮЧЕНИЯ СПОСОБОВ ОПЛАТЫ ---
+        // Единственный правильный обработчик, который работает для динамически загруженного контента
+        document.body.addEventListener('click', (e) => {
+            const paymentOption = e.target.closest('.payment-option');
+            if (paymentOption) {
+                const optionsContainer = paymentOption.closest('.payment-options');
+                if (optionsContainer) {
+                    optionsContainer.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+                    paymentOption.classList.add('active');
+                }
+            }
+        });
+
     }
 });
 
