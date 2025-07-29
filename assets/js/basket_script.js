@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         fullCartView.addEventListener('click', handleCartInteraction);
         
-        api('get').then(response => renderCart(response.cart));
+        api('BasketGetCart').then(response => renderCart(response.cart));
     }
 
     // --- ЛОГИКА СТРАНИЦЫ ОФОРМЛЕНИЯ (checkout.php) ---
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Загрузка данных о заказе в сайдбар
-        api('get').then(response => {
+        api('BasketGetCart').then(response => {
             const { cart } = response;
             const summaryContainer = document.querySelector('.order-summary-sidebar .order-summary');
             
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 // Получаем актуальную сумму
-                const { cart } = await api('get');
+                const { cart } = await api('BasketGetCart');
                 if (!cart || cart.length === 0) {
                     alert("Ваша корзина пуста!");
                     return;

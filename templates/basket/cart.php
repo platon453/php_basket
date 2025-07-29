@@ -34,7 +34,7 @@
                         </div>
                         <div class="order-summary">
                             </div>
-                        <a href="checkout.html" class="go-to-checkout-btn">Перейти к оформлению</a>
+                        <a href="/checkout" class="go-to-checkout-btn">Перейти к оформлению</a>
                     </div>
                 </div>
             </div>

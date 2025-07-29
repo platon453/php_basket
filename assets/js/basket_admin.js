@@ -93,20 +93,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     ordersTableBody.addEventListener('click', async (e) => {
+        console.log('Клик по таблице заказов!', e.target);
+
         if (e.target.classList.contains('details-btn')) {
+            console.log('Нажата кнопка "Показать"');
             const row = e.target.closest('tr');
             const orderId = row.dataset.orderId;
+            console.log('Получен ID заказа:', orderId);
+
+            if (!orderId) {
+                console.error('Не удалось найти ID заказа!');
+                return;
+            }
 
             const orderData = allOrders.find(o => o.id == orderId);
-            if (!orderData) return;
+            if (!orderData) {
+                console.error('Не найдены данные заказа в переменной allOrders');
+                return;
+            }
 
+            console.log('Вызываю API для получения деталей заказа...');
             const response = await api('BasketGetOrderDetails', { password: currentPassword, orderId });
+            console.log('Получен ответ от API:', response);
 
             if (response.success) {
+                console.log('Ответ успешный, рендерю модальное окно...');
                 renderModalContent(orderData, response.items);
                 openModal();
             } else {
                 alert('Не удалось загрузить детали заказа.');
+                console.error('Ошибка при загрузке деталей заказа:', response.error);
             }
         }
     });
