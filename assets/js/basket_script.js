@@ -297,14 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const getCheckoutData = () => {
             const activePersonTab = document.querySelector('.person-type-tabs .tab.active').dataset.tab;
             const activeDeliveryOption = document.querySelector('.delivery-option.active').dataset.delivery;
-            const deliveryForm = document.querySelector(`.delivery-form[data-delivery-form="${activeDeliveryOption}"]`);
+            const form = document.querySelector('.checkout-form');
+
             const deliveryData = {};
-            if (deliveryForm) {
-                deliveryForm.querySelectorAll('input, select, textarea').forEach(input => {
-                    const key = input.name || input.placeholder;
-                    if (key) deliveryData[key] = input.value;
-                });
-            }
+            form.querySelectorAll('input[name]').forEach(input => {
+                // Собираем только видимые или не относящиеся к формам доставки поля
+                const deliveryFormParent = input.closest('.delivery-form');
+                if (!deliveryFormParent || deliveryFormParent.style.display !== 'none') {
+                    deliveryData[input.name] = input.value;
+                }
+            });
 
             return {
                 personType: activePersonTab,

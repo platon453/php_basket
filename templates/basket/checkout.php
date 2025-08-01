@@ -18,7 +18,7 @@
             <div class="checkout-content">
                 <form class="checkout-form">
                     <div class="person-type-tabs">
-                        <button type="button" class="tab active" data-tab="physical">Физическое лицо</button>
+                        <button type="button" class="tab active" data-tab="natural">Физическое лицо</button>
                         <button type="button" class="tab" data-tab="legal">Юридическое лицо</button>
                     </div>
 
@@ -32,8 +32,25 @@
                                     <button type="button" class="delivery-option" data-delivery="postal">Почтой РФ</button>
                                 </div>
                                 <div class="delivery-form" data-delivery-form="pickup"></div>
-                                <div class="delivery-form" data-delivery-form="courier" style="display: none;"><h4>Адрес для курьера:</h4><input type="text" placeholder="Улица, дом, квартира"></div>
-                                <div class="delivery-form" data-delivery-form="postal" style="display: none;"><h4>Адрес для почты:</h4><input type="text" placeholder="Полный адрес с индексом"></div>
+                                <div class="delivery-form" data-delivery-form="courier" style="display: none;"></div>
+                                <div class="delivery-form" data-delivery-form="postal" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-content">
+                                <h3>Получатель</h3>
+                                <div class="form-group">
+                                    <label>ФИО</label>
+                                    <input type="text" name="name" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Электронная почта</label>
+                                    <input type="email" name="email" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Телефон</label>
+                                    <input type="tel" name="phone" class="form-input">
+                                </div>
                             </div>
                         </div>
                         </div>

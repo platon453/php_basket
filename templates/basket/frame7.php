@@ -30,12 +30,12 @@
                                 
                                 <div class="address-inputs">
                                     <div class="input-row">
-                                        <input type="text" placeholder="" class="address-input full-width">
-                                        <input type="text" placeholder="Индекс" class="address-input">
+                                        <input type="text" name="address" placeholder="Улица и дом" class="address-input full-width">
+                                        <input type="text" name="postal_code" placeholder="Индекс" class="address-input">
                                     </div>
                                     <div class="input-row">
-                                        <input type="text" placeholder="Квартира или офис" class="address-input">
-                                        <input type="text" placeholder="Комментарий для курьера" class="address-input">
+                                        <input type="text" name="apartment" placeholder="Квартира или офис" class="address-input">
+                                        <input type="text" name="comment" placeholder="Комментарий для курьера" class="address-input">
                                     </div>
                                 </div>
 
@@ -66,25 +66,6 @@
                                     <h4>Картой на сайте</h4>
                                     <p>Оплатите на сайте онлайн</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3>Получатель</h3>
-                            <div class="form-group">
-                                <label>ФИО</label>
-                                <input type="text" class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Электронная почта</label>
-                                <input type="email" class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <label>Телефон</label>
-                                <input type="tel" class="form-input">
                             </div>
                         </div>
                     </div>
