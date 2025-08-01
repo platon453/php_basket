@@ -2,22 +2,19 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../function/BasketUpdateQuantity.php';
+require_once __DIR__ . '/../function/BasketAddItem.php';
 
 // Получаем данные из запроса
 $request = json_decode(file_get_contents('php://input'), true);
-$itemId = $request['itemId'] ?? null;
-$quantity = $request['quantity'] ?? null;
 
-// Проверяем наличие обязательных параметров
-if ($itemId === null || $quantity === null) {
+if (empty($request)) {
     http_response_code(400); // Bad Request
-    echo json_encode(['error' => 'Missing itemId or quantity']);
+    echo json_encode(['error' => 'No product data provided.']);
     exit;
 }
 
 // Вызываем функцию бизнес-логики
-$result = BasketUpdateQuantity($itemId, $quantity);
+$result = BasketAddItem($request);
 
 // Обрабатываем результат
 if (!$result['success']) {
