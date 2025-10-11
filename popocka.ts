@@ -1,1 +1,2 @@
-console.log("popocak")
+console.log("popocak");
+console.log("omg");
